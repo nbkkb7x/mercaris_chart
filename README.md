@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# TODO
+
+ - Confirm Average Price Calculation is Sufficient for the use case. If not, calculate the Weighted Volume Adjusted Price.
+ - Add Sortable Table Functionality in Turbo Frames
+ - Create Bulk File Importing, as Opposed to the /lib/task Method I am currently using.
+ 
