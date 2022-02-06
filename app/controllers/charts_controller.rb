@@ -1,70 +1,38 @@
 class ChartsController < ApplicationController
-  before_action :set_chart, only: %i[ show edit update destroy ]
-
-  # GET /charts or /charts.json
-  def index
-    @charts = Chart.all
+  
+  def count_by_week_trades
+    render json: Trade.group_by_week(:transaction_date).count
   end
 
-  # GET /charts/1 or /charts/1.json
-  def show
+  def count_by_month_trades
+    render json: Trade.group_by_month(:transaction_date).count
   end
 
-  # GET /charts/new
-  def new
-    @chart = Chart.new
+  def average_price_by_week_trades
+    render json: Trade.group_by_week(:transaction_date).average(:price)
   end
 
-  # GET /charts/1/edit
-  def edit
+  def average_price_by_month_trades
+    render json: Trade.group_by_month(:transaction_date).average(:price)
   end
 
-  # POST /charts or /charts.json
-  def create
-    @chart = Chart.new(chart_params)
+  def volume_weighted_price_by_week_trades
+    # #VWAP = (Sum(Qty * Price) / Sum(Qty))
+    # @grouped_price = Trade.group_by_week(:transaction_date).sum(:price)
+    # @grouped_quantity = Trade.group_by_week(:transaction_date).sum(:quantity)
+    # vwap = @grouped_price.values.each do |x|
+    #   @grouped_price[x] = @grouped_price[x] / @grouped_quantity[x]
+    
+    # grouped_price_volume = grouped_price.each do |x|
+    #   grouped_price_volume[x] = grouped_price[x] / grouped_quantity[x]
+    # end
 
-    respond_to do |format|
-      if @chart.save
-        format.html { redirect_to chart_url(@chart), notice: "Chart was successfully created." }
-        format.json { render :show, status: :created, location: @chart }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @chart.errors, status: :unprocessable_entity }
-      end
-    end
+    # grouped_price_volume = grouped_price.values * grouped_quantity.values
+    # vwap = grouped_price_volume % grouped_quantity
+    # render json: vwap
   end
 
-  # PATCH/PUT /charts/1 or /charts/1.json
-  def update
-    respond_to do |format|
-      if @chart.update(chart_params)
-        format.html { redirect_to chart_url(@chart), notice: "Chart was successfully updated." }
-        format.json { render :show, status: :ok, location: @chart }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @chart.errors, status: :unprocessable_entity }
-      end
-    end
+  def volume_weighted_price_by_month_trades
   end
 
-  # DELETE /charts/1 or /charts/1.json
-  def destroy
-    @chart.destroy
-
-    respond_to do |format|
-      format.html { redirect_to charts_url, notice: "Chart was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chart
-      @chart = Chart.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def chart_params
-      params.fetch(:chart, {})
-    end
 end

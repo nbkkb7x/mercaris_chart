@@ -1,6 +1,6 @@
 require 'csv'
 
-# Reads Trade CSv File & Saves into Trade Record
+# Reads Trade CSV File & Saves into Trade Record
 Dir[Rails.root.to_s + "/lib/tasks/mercaris_sample_data**csv"].each do |file| 
   CSV.parse(File.read(file), headers: true, col_sep: ",", encoding: "ISO-8859-1") do |row|
     #TODO Fix Date Format- might want to refractor a way to not malform the date before raw_data is saved
