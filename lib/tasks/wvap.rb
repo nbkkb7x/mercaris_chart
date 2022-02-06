@@ -1,7 +1,7 @@
 def volume_weighted_price_by_week_trades
   #VWAP = (Sum(Qty * Price) / Sum(Qty))
 
-binding.pry
+  binding.pry
   grouped_price = Trade.group_by_week(:transaction_date).sum(:price)
   grouped_quantity = Trade.group_by_week(:transaction_date).sum(:quantity)
   grouped_price_volume = grouped_price.each do |x|

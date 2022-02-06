@@ -1,2 +1,13 @@
 @import 'bootstrap/scss/bootstrap';
 @import "bootstrap-icons/font/bootstrap-icons";
+
+// Custom Style Bits
+.page-item.active .page-link {
+  background-color: #0f9fb4;
+  border-color: #0f9fb4;
+}
+.page-link {
+  position: relative;
+  display: block;
+  color: #0f9fb4;
+}

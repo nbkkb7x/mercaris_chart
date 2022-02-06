@@ -51,6 +51,9 @@ gem "chartkick"
 # Using Groupdate for Temperal Data Grouping
 gem "groupdate"
 
+#Using Pagy form Fast Pagination
+gem 'pagy', '~> 5.10'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

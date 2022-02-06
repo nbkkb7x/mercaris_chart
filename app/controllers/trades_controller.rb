@@ -1,6 +1,6 @@
 class TradesController < ApplicationController
   def index
-    @trades = Trade.all
+    @pagy, @trades = pagy(Trade.all)
 
     respond_to do |format|
       format.html
