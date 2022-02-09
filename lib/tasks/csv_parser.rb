@@ -11,7 +11,8 @@ Dir[Rails.root.to_s + "/lib/tasks/mercaris_sample_data**csv"].each do |file|
       contract: row["contract"],
       transaction_date: row["transaction_date"],
       quantity: row["quantity"].to_i,
-      price: row["price (USD)"].to_f,   
+      price: row["price (USD)"].to_f,
+      total: row["quantity"].to_i * row["price (USD)"].to_f,
       trade_filename: File.basename(file),
       raw_data: row.to_hash
       )

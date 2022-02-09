@@ -17,22 +17,47 @@ class ChartsController < ApplicationController
   end
 
   def volume_weighted_price_by_week_trades
-    # #VWAP = (Sum(Qty * Price) / Sum(Qty))
-    # @grouped_price = Trade.group_by_week(:transaction_date).sum(:price)
-    # @grouped_quantity = Trade.group_by_week(:transaction_date).sum(:quantity)
-    # vwap = @grouped_price.values.each do |x|
-    #   @grouped_price[x] = @grouped_price[x] / @grouped_quantity[x]
-    
-    # grouped_price_volume = grouped_price.each do |x|
-    #   grouped_price_volume[x] = grouped_price[x] / grouped_quantity[x]
-    # end
+    # VWAP = (Sum(Qty * Price) / Sum(Qty)) I'm not sure I did this right
+    @total = Trade.group_by_week(:transaction_date).sum(:total)
+    @grouped_quantities = Trade.group_by_week(:transaction_date).sum(:quantity)
 
-    # grouped_price_volume = grouped_price.values * grouped_quantity.values
-    # vwap = grouped_price_volume % grouped_quantity
-    # render json: vwap
+    vwaps = @grouped_quantities.zip(@total).map do |quantity, total|
+      vwap = if quantity[1] == 0 # avoids division by zero
+        0
+      else
+        [
+          total[1] / quantity[1]
+        ]
+      end
+
+      [
+        quantity[0],
+        vwap
+      ]
+    end
+    render json: vwaps
   end
 
   def volume_weighted_price_by_month_trades
+    # #VWAP = (Sum(Qty * Price) / Sum(Qty)) I'm not sure I did this right
+    @total = Trade.group_by_month(:transaction_date).sum(:total)
+    @grouped_quantities = Trade.group_by_month(:transaction_date).sum(:quantity)
+
+    vwaps = @grouped_quantities.zip(@total).map do |quantity, total|
+      vwap = if quantity[1] == 0 # avoids division by zero
+        0
+      else
+        [
+          total[1] / quantity[1]
+        ]
+      end
+
+      [
+        quantity[0],
+        vwap
+      ]
+    end
+    render json: vwaps
   end
 
 end

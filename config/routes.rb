@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     get "average-price-by-week-trades"
     get "average-price-by-month-trades"
     get "volume-weighted-price-by-week-trades"
+    get "volume-weighted-price-by-month-trades"
   end
 end

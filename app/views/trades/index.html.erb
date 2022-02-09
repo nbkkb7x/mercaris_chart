@@ -8,7 +8,10 @@
   </div>
     <div class="row py-3">
     <%= line_chart charts_average_price_by_month_trades_path, prefix: "$", round: 2, label: "Price", ytitle: "Monthly Average Price (USD)" %>
-  </div>
+    </div>
+    <div class="row py-3">
+    <%= line_chart charts_volume_weighted_price_by_month_trades_path, prefix: "$", round: 2, label: "Price", ytitle: "Monthly WVAP (USD)" %>
+    </div>
   <div class="row py-3">
     <table class="table table-bordered">
       <thead>
